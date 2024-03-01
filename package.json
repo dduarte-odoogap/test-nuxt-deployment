@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "build:digitalocean": "node .output/server/index.mjs",
+    "start": "node .output/server/index.mjs",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
