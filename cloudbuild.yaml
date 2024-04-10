@@ -1,11 +1,4 @@
 steps:
-  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
-    entrypoint: "bash"
-    args:
-    - "-c"
-    - |
-      REDIS_IP=$(gcloud redis instances describe my-redis-cache --region=europe-west3 --format='value(host)')
-      echo "REDIS_URL=redis://$REDIS_IP:6379" >> $$GITHUB_ENV
 
   - name: "gcr.io/cloud-builders/docker"
     args:
@@ -22,12 +15,12 @@ steps:
     args: [
         "run",
         "deploy",
-        "vuestorefront-demo-site-1",
+        "simple-nuxt-redis",
         "--image",
-        # "gcr.io/$PROJECT_ID/simple-nuxt-redis:$BUILD_ID",
+        # "gcr.io/$PROJECT_ID/simple-nuxt-redis:$SHORT_SHA",
         "gcr.io/$PROJECT_ID/simple-nuxt-redis:1.1",
         "--update-env-vars",
-        "REDIS_URL=$REDIS_URL",
+        "REDIS_URL=${_REDIS_URL}",
         "--platform",
         "managed",
         "--memory=1G",
@@ -38,3 +31,9 @@ steps:
         "--allow-unauthenticated",
       ]
 timeout: "1600s"
+
+substitutions:
+  _REDIS_URL: "redis://10.99.152.92:6379"
+
+options:
+    dynamicSubstitutions: true
