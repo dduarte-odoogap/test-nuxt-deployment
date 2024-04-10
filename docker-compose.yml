@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+
+  redis:
+    container_name: redis
+    image: library/redis:5.0-alpine
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+    networks:
+      - net01
+    volumes:
+      - redis_data:/data
+
+  nuxt_app:
+    env_file: .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        REDIS_URL: "redis://redis:6379"
+
+    container_name: nuxt_app
+    ports:
+      - 8080:8080
+    image: nuxt_app
+    restart: unless-stopped
+    depends_on:
+      - redis
+    networks:
+      - net01
+
+volumes:
+  redis_data:
+    external: false
+
+networks:
+  net01:
+    name: net01
