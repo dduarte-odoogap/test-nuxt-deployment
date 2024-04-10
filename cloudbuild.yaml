@@ -1,3 +1,6 @@
+substitutions:
+  _REDIS_URL: "redis://10.99.152.92:6379"
+
 steps:
 
   - name: "gcr.io/cloud-builders/docker"
@@ -5,11 +8,11 @@ steps:
       [
         "build",
         "-t",
-        "gcr.io/$PROJECT_ID/simple-nuxt-redis:1.1",
+        "gcr.io/$PROJECT_ID/simple-nuxt-redis:$SHORT_SHA",
         ".",
       ]
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/$PROJECT_ID/simple-nuxt-redis:1.1"]
+    args: ["push", "gcr.io/$PROJECT_ID/simple-nuxt-redis:$SHORT_SHA"]
 
   - name: "gcr.io/cloud-builders/gcloud"
     args: [
@@ -17,8 +20,7 @@ steps:
         "deploy",
         "simple-nuxt-redis",
         "--image",
-        # "gcr.io/$PROJECT_ID/simple-nuxt-redis:$SHORT_SHA",
-        "gcr.io/$PROJECT_ID/simple-nuxt-redis:1.1",
+        "gcr.io/$PROJECT_ID/simple-nuxt-redis:$SHORT_SHA",
         "--update-env-vars",
         "REDIS_URL=${_REDIS_URL}",
         "--platform",
@@ -31,9 +33,6 @@ steps:
         "--allow-unauthenticated",
       ]
 timeout: "1600s"
-
-substitutions:
-  _REDIS_URL: "redis://10.99.152.92:6379"
 
 options:
     dynamicSubstitutions: true
