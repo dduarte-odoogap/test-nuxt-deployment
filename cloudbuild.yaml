@@ -34,5 +34,3 @@ steps:
       ]
 timeout: "1600s"
 
-options:
-    dynamicSubstitutions: true
