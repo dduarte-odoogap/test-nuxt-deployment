@@ -10,7 +10,6 @@ steps:
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/simple-nuxt-redis:$SHORT_SHA"]
   - name: "gcr.io/cloud-builders/gcloud"
-    entrypoint: "/bin/bash"
     args: [
         "run",
         "deploy",
@@ -29,8 +28,9 @@ steps:
         "--allow-unauthenticated",
       ]
 timeout: "1600s"
-substitutions:
-  _REDIS_URL: "redis://10.99.152.92:6379"
 serviceAccount: 845038326535-compute@developer.gserviceaccount.com
 options:
   logging: CLOUD_LOGGING_ONLY
+substitutions:
+  _REDIS_URL: "redis://10.99.152.92:6379"
+images: ["gcr.io/$PROJECT_ID/simple-nuxt-redis:$SHORT_SHA"]
