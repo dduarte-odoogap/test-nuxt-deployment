@@ -17,7 +17,7 @@ steps:
         '--image',
         'gcr.io/$PROJECT_ID/simple-nuxt-redis:$SHORT_SHA',
         '--update-env-vars',
-        '"REDIS_URL=redis://10.99.152.92:6379"',
+        'REDIS_URL=$_REDIS_URL',
         '--platform',
         'managed',
         '--memory=1G',

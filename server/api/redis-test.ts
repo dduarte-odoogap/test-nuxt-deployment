@@ -4,6 +4,8 @@ import Redis from 'ioredis';
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
+  
+  console.log('redis-test.ts______' + config.redisUrl);
 
   const redis = new Redis(config.redisUrl);
 
