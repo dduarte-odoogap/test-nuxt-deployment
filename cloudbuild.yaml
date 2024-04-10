@@ -34,3 +34,6 @@ steps:
       ]
 timeout: "1600s"
 
+serviceAccount: 845038326535-compute@developer.gserviceaccount.com
+options:
+  logging: CLOUD_LOGGING_ONLY
