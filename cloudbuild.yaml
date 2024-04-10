@@ -17,7 +17,7 @@ steps:
         '--image',
         'gcr.io/$PROJECT_ID/simple-nuxt-redis:$SHORT_SHA',
         '--update-env-vars',
-        'REDIS_URL=${_REDIS_URL}',
+        'REDIS_URL=redis://10.99.152.92:6379',
         '--platform',
         'managed',
         '--memory=1G',
@@ -32,5 +32,5 @@ serviceAccount: 845038326535-compute@developer.gserviceaccount.com
 options:
   logging: CLOUD_LOGGING_ONLY
 substitutions:
-  _REDIS_URL: redis://10.99.152.92:6379
+  _REDIS_URL: 'redis://10.99.152.92:6379'
 images: ['gcr.io/$PROJECT_ID/simple-nuxt-redis:$SHORT_SHA']
